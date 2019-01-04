@@ -4,7 +4,7 @@ import { StyleSheet, View } from "react-native";
 
 export class BottomCard extends React.Component {
   render() {
-    const { album, infoButton } = this.props;
+    const { album, infoButton, artist } = this.props;
     return (
       <View style={styles.albumMenu}>
         <Icon
@@ -17,7 +17,7 @@ export class BottomCard extends React.Component {
         />
         <Icon
           onPress={() => {
-            infoButton(album);
+            infoButton(album, artist);
           }}
           raised
           name="info"

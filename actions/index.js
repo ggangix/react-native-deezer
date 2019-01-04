@@ -17,3 +17,9 @@ export const searchTracks = singerName => {
     return _.uniqBy(albums, "title");
   });
 };
+
+export const getAlbumTracks = albumId => {
+  return axiosInstance.get(`album/${albumId}`).then(response => {
+    return response.data.tracks.data;
+  });
+};

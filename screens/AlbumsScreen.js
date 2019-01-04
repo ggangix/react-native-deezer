@@ -13,6 +13,7 @@ export default class AlbumsScreen extends React.Component {
     super();
     this.state = {
       albums: [],
+      artist: "",
       isFetching: false
     };
 
@@ -21,20 +22,23 @@ export default class AlbumsScreen extends React.Component {
   componentDidMount() {}
 
   searchTracks(artist) {
-    this.setState({ isFetching: true, albums: [] });
+    this.setState({ isFetching: true, albums: [], artist });
     actions
       .searchTracks(artist)
       .then(albums => this.setState({ albums, isFetching: false }))
       .catch(err => this.setState({ albums: [], isFetching: false }));
   }
 
-  goToDetailsView(album = []) {
+  goToDetailsView(album = [], artist = "") {
     console.log("GO TO VIEW DETAILS");
-    this.props.navigation.navigate("AlbumDetail", { album: album });
+    this.props.navigation.navigate("AlbumDetail", {
+      album: album,
+      artist: artist
+    });
   }
 
   renderAlbumView() {
-    const { albums, isFetching } = this.state;
+    const { albums, isFetching, artist } = this.state;
     return (
       <ScrollView style={styles.container}>
         <SearchText
@@ -45,6 +49,7 @@ export default class AlbumsScreen extends React.Component {
         {albums.length > 0 && !isFetching && (
           <CardList
             data={albums}
+            artist={artist}
             imageKey={"cover_big"}
             titleKey={"title"}
             buttonText={"See Details"}
