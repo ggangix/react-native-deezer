@@ -4,7 +4,7 @@ import { BottomCard } from "./BottomCard";
 
 export class CardList extends React.Component {
   renderData() {
-    const { data, imageKey, titleKey } = this.props;
+    const { data, imageKey, titleKey, infoButton } = this.props;
     return data.map((item, index) => {
       return (
         <Card
@@ -12,7 +12,7 @@ export class CardList extends React.Component {
           title={item[titleKey]}
           image={{ uri: item[imageKey] }}
         >
-          <BottomCard />
+          <BottomCard album={item} infoButton={infoButton} />
         </Card>
       );
     });

@@ -15,6 +15,8 @@ export default class AlbumsScreen extends React.Component {
       albums: [],
       isFetching: false
     };
+
+    this.goToDetailsView = this.goToDetailsView.bind(this);
   }
   componentDidMount() {}
 
@@ -24,6 +26,11 @@ export default class AlbumsScreen extends React.Component {
       .searchTracks(artist)
       .then(albums => this.setState({ albums, isFetching: false }))
       .catch(err => this.setState({ albums: [], isFetching: false }));
+  }
+
+  goToDetailsView(album = []) {
+    console.log("GO TO VIEW DETAILS");
+    this.props.navigation.navigate("AlbumDetail", { album: album });
   }
 
   renderAlbumView() {
@@ -41,6 +48,7 @@ export default class AlbumsScreen extends React.Component {
             imageKey={"cover_big"}
             titleKey={"title"}
             buttonText={"See Details"}
+            infoButton={this.goToDetailsView}
           />
         )}
         {albums.length === 0 && isFetching && (

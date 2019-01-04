@@ -4,6 +4,7 @@ import { StyleSheet, View } from "react-native";
 
 export class BottomCard extends React.Component {
   render() {
+    const { album, infoButton } = this.props;
     return (
       <View style={styles.albumMenu}>
         <Icon
@@ -15,7 +16,9 @@ export class BottomCard extends React.Component {
           size={30}
         />
         <Icon
-          onPress={() => {}}
+          onPress={() => {
+            infoButton(album);
+          }}
           raised
           name="info"
           type="font-awesome"
