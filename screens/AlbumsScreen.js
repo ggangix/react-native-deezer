@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView, StyleSheet, ActivityIndicator } from "react-native";
+import { ScrollView, StyleSheet, ActivityIndicator, View } from "react-native";
 import { CardList } from "../components/CardList";
 import { SearchText } from "../components/SearchText";
 import * as actions from "../actions/";
