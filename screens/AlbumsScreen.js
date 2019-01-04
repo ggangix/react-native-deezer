@@ -24,14 +24,12 @@ export default class AlbumsScreen extends React.Component {
     const { albums } = this.state;
     return (
       <ScrollView style={styles.container}>
-        {albums.length > 0 && (
-          <CardList
-            data={albums}
-            imageKey={"cover_big"}
-            titleKey={"title"}
-            buttonText={"See Details"}
-          />
-        )}
+        <CardList
+          data={albums}
+          imageKey={"cover_big"}
+          titleKey={"title"}
+          buttonText={"See Details"}
+        />
       </ScrollView>
     );
   }

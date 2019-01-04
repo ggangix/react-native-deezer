@@ -1,4 +1,5 @@
 import React from "react";
+import { Text, View, ActivityIndicator } from "react-native";
 import { Card, Button } from "react-native-elements";
 
 export class CardList extends React.Component {
@@ -28,6 +29,15 @@ export class CardList extends React.Component {
   }
 
   render() {
-    return this.renderData();
+    const { data } = this.props;
+    if (data && data.length > 0) {
+      return this.renderData();
+    } else {
+      return (
+        <View>
+          <ActivityIndicator size="large" />
+        </View>
+      );
+    }
   }
 }
