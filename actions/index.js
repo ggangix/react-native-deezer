@@ -1,4 +1,5 @@
 import axios from "axios";
+import _ from "lodash";
 import API_KEY from "../config";
 
 const axiosInstance = axios.create({
@@ -11,6 +12,8 @@ const axiosInstance = axios.create({
 
 export const searchTracks = singerName => {
   return axiosInstance.get(`search/?q=${singerName}`).then(response => {
-    return response.data.data.map(item => item.album);
+    const albums = response.data.data.map(item => item.album);
+    // Unique albums by title.
+    return _.uniqBy(albums, "title");
   });
 };
