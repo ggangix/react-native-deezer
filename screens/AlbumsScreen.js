@@ -1,6 +1,7 @@
 import React from "react";
 import { ScrollView, StyleSheet } from "react-native";
 import { CardList } from "../components/CardList";
+import * as actions from "../actions/";
 
 export default class AlbumsScreen extends React.Component {
   static navigationOptions = {
@@ -10,41 +11,27 @@ export default class AlbumsScreen extends React.Component {
   constructor() {
     super();
     this.state = {
-      albums: [
-        {
-          title: "Meteora",
-          image:
-            "https://img.discogs.com/3itmKMl-YLxgHmCpOjz2pvEvorQ=/fit-in/300x300/filters:strip_icc():format(jpeg):mode_rgb():quality(40)/discogs-images/R-12471379-1535952596-6842.jpeg.jpg"
-        },
-        {
-          title: "Meteora",
-          image:
-            "https://img.discogs.com/3itmKMl-YLxgHmCpOjz2pvEvorQ=/fit-in/300x300/filters:strip_icc():format(jpeg):mode_rgb():quality(40)/discogs-images/R-12471379-1535952596-6842.jpeg.jpg"
-        },
-        {
-          title: "Meteora",
-          image:
-            "https://img.discogs.com/3itmKMl-YLxgHmCpOjz2pvEvorQ=/fit-in/300x300/filters:strip_icc():format(jpeg):mode_rgb():quality(40)/discogs-images/R-12471379-1535952596-6842.jpeg.jpg"
-        },
-        {
-          title: "Meteora",
-          image:
-            "https://img.discogs.com/3itmKMl-YLxgHmCpOjz2pvEvorQ=/fit-in/300x300/filters:strip_icc():format(jpeg):mode_rgb():quality(40)/discogs-images/R-12471379-1535952596-6842.jpeg.jpg"
-        }
-      ]
+      albums: []
     };
+  }
+  componentDidMount() {
+    actions.searchTracks("gorilazz").then(albums => {
+      this.setState({ albums });
+    });
   }
 
   render() {
     const { albums } = this.state;
     return (
       <ScrollView style={styles.container}>
-        <CardList
-          data={albums}
-          imageKey={"image"}
-          titleKey={"title"}
-          buttonText={"See Details"}
-        />
+        {albums.length > 0 && (
+          <CardList
+            data={albums}
+            imageKey={"cover_big"}
+            titleKey={"title"}
+            buttonText={"See Details"}
+          />
+        )}
       </ScrollView>
     );
   }
