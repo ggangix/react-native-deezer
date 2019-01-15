@@ -63,24 +63,33 @@ export default class AlbumDetailScreen extends React.Component {
     const artist = navigation.getParam("artist", "");
     if (album.id) {
       return (
-        <ScrollView style={styles.container}>
+        <ScrollView>
           {!isFetching && (
-            <View>
-              <Avatar xlarge rounded source={{ uri: album.cover_medium }} />
-
-              <View>
-                <Text h4>{album.title}</Text>
-                <Text h4>{artist}</Text>
-                <Icon
-                  raised
-                  name="play"
-                  type="font-awesome"
-                  color="#f50"
-                  onPress={() => {}}
-                />
+            <View style={styles.container}>
+              <View style={styles.header}>
+                <View style={styles.avatar}>
+                  <Avatar xlarge rounded source={{ uri: album.cover_medium }} />
+                </View>
+                <View style={styles.headerRight}>
+                  <Text style={styles.mainText} h4>
+                    {album.title}
+                  </Text>
+                  <Text h4 style={styles.subText}>
+                    {artist}
+                  </Text>
+                  <Icon
+                    raised
+                    name="play"
+                    type="font-awesome"
+                    color="#f50"
+                    onPress={() => {}}
+                  />
+                </View>
               </View>
               <Divider style={{ backgroundColor: "black" }} />
-              <List>{this.renderTracks()}</List>
+              <List containerStyle={{ marginTop: 0 }}>
+                {this.renderTracks()}
+              </List>
             </View>
           )}
           {isFetching && <ActivityIndicator size="large" />}
@@ -92,8 +101,32 @@ export default class AlbumDetailScreen extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1
+  },
+  header: {
     flex: 1,
-    paddingTop: 15,
-    backgroundColor: "#fff"
+    justifyContent: "center",
+    flexDirection: "row",
+    backgroundColor: "#fff",
+    padding: 20
+  },
+  avatar: {
+    flex: 1,
+    marginRight: 20
+  },
+  headerRight: {
+    flex: 1,
+    flexWrap: "wrap",
+    justifyContent: "flex-end",
+    flexDirection: "column"
+  },
+  mainText: {
+    fontWeight: "bold",
+    color: "#3a3a3a",
+    fontSize: 17
+  },
+  subText: {
+    color: "#3a3a3a",
+    fontSize: 17
   }
 });
