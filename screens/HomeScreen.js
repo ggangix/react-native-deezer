@@ -4,7 +4,6 @@ import {
   Platform,
   ScrollView,
   StyleSheet,
-  Text,
   Button,
   TouchableOpacity,
   View
@@ -12,6 +11,28 @@ import {
 import { WebBrowser } from "expo";
 
 import { MonoText } from "../components/StyledText";
+import { List, ListItem, Card, Text, Icon } from "react-native-elements";
+
+const menuList = [
+  {
+    title: "Search Albums",
+    subTitle: "Search your favorite music",
+    icon: "music",
+    navigateTo: "Albums"
+  },
+  {
+    title: "Favorite Collections",
+    subTitle: "Access to your favorites albums",
+    icon: "heart",
+    navigateTo: "#"
+  },
+  {
+    title: "Settings",
+    subTitle: "Customize your app",
+    icon: "cog",
+    navigateTo: "#"
+  }
+];
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -20,14 +41,29 @@ export default class HomeScreen extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Button
-          title="Navigate to albums"
-          onPress={() => {
-            this.props.navigation.navigate("Albums");
-          }}
-        />
-      </View>
+      <ScrollView style={styles.container}>
+        <List containerStyle={{ backgroundColor: "#eaeaea", marginTop: 0 }}>
+          {menuList.map((item, index) => {
+            return (
+              <Card key={index} title={item.title}>
+                <View style={styles.cardView}>
+                  <Text style={{ marginBottom: 10 }}> {item.subTitle} </Text>
+                  <Icon
+                    raised
+                    name={item.icon}
+                    type="font-awesome"
+                    color="#f50"
+                    size={30}
+                    onPress={() => {
+                      this.props.navigation.navigate(item.navigateTo);
+                    }}
+                  />
+                </View>
+              </Card>
+            );
+          })}
+        </List>
+      </ScrollView>
     );
   }
 }
@@ -36,5 +72,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff"
+  },
+  cardView: {
+    alignItems: "center"
   }
 });
