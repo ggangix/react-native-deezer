@@ -4,7 +4,8 @@ import {
   View,
   StyleSheet,
   Text,
-  ActivityIndicator
+  ActivityIndicator,
+  Linking
 } from "react-native";
 import { Icon, Avatar, Divider, List, ListItem } from "react-native-elements";
 import * as actions from "../actions/";
@@ -40,7 +41,7 @@ export default class AlbumDetailScreen extends React.Component {
             key={index}
             title={track.title}
             leftIcon={{ name: "play-arrow" }}
-            onPress={() => {}}
+            onPress={() => Linking.openURL(track.preview)}
             rightIcon={
               <Icon
                 raised
@@ -57,7 +58,7 @@ export default class AlbumDetailScreen extends React.Component {
   }
 
   render() {
-    const { isFetching } = this.state;
+    const { isFetching, tracks } = this.state;
     const { navigation } = this.props;
     const album = navigation.getParam("album", []);
     const artist = navigation.getParam("artist", "");
