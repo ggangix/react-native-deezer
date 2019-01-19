@@ -29,6 +29,24 @@ export default class AlbumsScreen extends React.Component {
       .catch(err => this.setState({ albums: [], isFetching: false }));
   }
 
+  async saveAlbumToFavorite(album) {
+    console.log("Try to save album");
+    const favoritesAlbums =
+      (await actions.retrieveData("favoritesAlbums")) || {};
+
+    if (favoritesAlbums[album.id]) {
+      console.log("repeated!");
+      return false;
+    }
+
+    favoritesAlbums[album.id] = album;
+
+    const success = await actions.storeData("favoritesAlbums", favoritesAlbums);
+    if (success) {
+      console.log("Album saved!");
+    }
+  }
+
   goToDetailsView(album = [], artist = "") {
     console.log("GO TO VIEW DETAILS");
     this.props.navigation.navigate("AlbumDetail", {
@@ -54,6 +72,7 @@ export default class AlbumsScreen extends React.Component {
             titleKey={"title"}
             buttonText={"See Details"}
             infoButton={this.goToDetailsView}
+            favFunction={this.saveAlbumToFavorite}
           />
         )}
         {albums.length === 0 && isFetching && (

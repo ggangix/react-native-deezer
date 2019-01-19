@@ -9,6 +9,7 @@ import TabBarIcon from "../components/TabBarIcon";
 import HomeScreen from "../screens/HomeScreen";
 import LinksScreen from "../screens/LinksScreen";
 import SettingsScreen from "../screens/SettingsScreen";
+import StorageScreen from "../screens/StorageScreen";
 
 import AlbumsScreen from "../screens/AlbumsScreen";
 import AlbumDetailScreen from "../screens/AlbumDetailScreen";
@@ -47,7 +48,8 @@ LinksStack.navigationOptions = {
 };
 
 const SettingsStack = createStackNavigator({
-  Settings: SettingsScreen
+  Settings: SettingsScreen,
+  Storage: StorageScreen
 });
 
 SettingsStack.navigationOptions = {

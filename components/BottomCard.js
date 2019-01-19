@@ -4,7 +4,7 @@ import { StyleSheet, View } from "react-native";
 
 export class BottomCard extends React.Component {
   render() {
-    const { album, infoButton, artist } = this.props;
+    const { album, infoButton, artist, favFunction } = this.props;
     return (
       <View style={styles.albumMenu}>
         <Icon
@@ -26,7 +26,9 @@ export class BottomCard extends React.Component {
           size={30}
         />
         <Icon
-          onPress={() => {}}
+          onPress={() => {
+            favFunction(album);
+          }}
           raised
           name="heart"
           type="font-awesome"

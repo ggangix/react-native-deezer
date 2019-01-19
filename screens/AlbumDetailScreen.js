@@ -27,13 +27,38 @@ export default class AlbumDetailScreen extends React.Component {
     actions.getAlbumTracks(album.id).then(tracks => {
       this.setState({
         tracks,
+        album,
         isFetching: false
       });
     });
   }
 
+  async saveTrackToFavorites(album, track) {
+    const favoritesAlbum =
+      (await actions.retrieveData("favoritesAlbums")) || {};
+
+    let albumData = favoritesAlbum[album.id];
+
+    if (!albumData) {
+      albumData = album;
+    }
+
+    if (!albumData["tracks"]) {
+      albumData["tracks"] = {};
+    }
+
+    albumData["tracks"][track.id] = track;
+
+    favoritesAlbum[album.id] = albumData;
+    const success = await actions.storeData("favoritesAlbums", favoritesAlbum);
+
+    if (success) {
+      console.log("OK!");
+    }
+  }
+
   renderTracks() {
-    const { tracks } = this.state;
+    const { tracks, album } = this.state;
     if (tracks && tracks.length > 0) {
       return tracks.map((track, index) => {
         return (
@@ -41,14 +66,14 @@ export default class AlbumDetailScreen extends React.Component {
             key={index}
             title={track.title}
             leftIcon={{ name: "play-arrow" }}
-            onPress={() => Linking.openURL(track.preview)}
+            leftIconOnPress={() => Linking.openURL(track.preview)}
             rightIcon={
               <Icon
                 raised
                 name="star"
                 type="font-awesome"
                 color="#f50"
-                onPress={() => {}}
+                onPress={() => this.saveTrackToFavorites(album, track)}
               />
             }
           />
