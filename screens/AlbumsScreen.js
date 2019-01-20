@@ -1,5 +1,11 @@
 import React from "react";
-import { ScrollView, StyleSheet, ActivityIndicator, View } from "react-native";
+import {
+  ScrollView,
+  StyleSheet,
+  ActivityIndicator,
+  Alert,
+  View
+} from "react-native";
 import { CardList } from "../components/CardList";
 import { SearchText } from "../components/SearchText";
 import * as actions from "../actions/";
@@ -31,6 +37,7 @@ export default class AlbumsScreen extends React.Component {
 
   async saveAlbumToFavorite(album) {
     console.log("Try to save album");
+
     const favoritesAlbums =
       (await actions.retrieveData("favoritesAlbums")) || {};
 
@@ -44,6 +51,12 @@ export default class AlbumsScreen extends React.Component {
     const success = await actions.storeData("favoritesAlbums", favoritesAlbums);
     if (success) {
       console.log("Album saved!");
+      Alert.alert(
+        "Album Added",
+        `Album ${album.title} was added to Favorites!`,
+        [{ text: "Continue", onPress: () => console.log("OK Pressed") }],
+        { cancelable: false }
+      );
     }
   }
 

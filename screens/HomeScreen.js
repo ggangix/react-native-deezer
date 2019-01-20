@@ -24,13 +24,7 @@ const menuList = [
     title: "Favorite Collections",
     subTitle: "Access to your favorites albums",
     icon: "heart",
-    navigateTo: "#"
-  },
-  {
-    title: "Settings",
-    subTitle: "Customize your app",
-    icon: "cog",
-    navigateTo: "#"
+    navigateTo: "Favorites"
   }
 ];
 
@@ -42,7 +36,13 @@ export default class HomeScreen extends React.Component {
   render() {
     return (
       <ScrollView style={styles.container}>
-        <List containerStyle={{ backgroundColor: "#eaeaea", marginTop: 0 }}>
+        <List
+          containerStyle={{
+            backgroundColor: "#eaeaea",
+            marginTop: 0,
+            height: 465
+          }}
+        >
           {menuList.map((item, index) => {
             return (
               <Card key={index} title={item.title}>

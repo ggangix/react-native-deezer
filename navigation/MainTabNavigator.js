@@ -7,9 +7,7 @@ import {
 
 import TabBarIcon from "../components/TabBarIcon";
 import HomeScreen from "../screens/HomeScreen";
-import LinksScreen from "../screens/LinksScreen";
-import SettingsScreen from "../screens/SettingsScreen";
-import StorageScreen from "../screens/StorageScreen";
+import FavoritesScreen from "../screens/FavoritesScreen";
 
 import AlbumsScreen from "../screens/AlbumsScreen";
 import AlbumDetailScreen from "../screens/AlbumDetailScreen";
@@ -26,44 +24,28 @@ HomeStack.navigationOptions = {
       focused={focused}
       name={
         Platform.OS === "ios"
-          ? `ios-information-circle${focused ? "" : "-outline"}`
-          : "md-information-circle"
+          ? `ios-home${focused ? "" : "-outline"}`
+          : "md-home"
       }
     />
   )
 };
 
-const LinksStack = createStackNavigator({
-  Links: LinksScreen
+const FavoritesStack = createStackNavigator({
+  Favorites: FavoritesScreen
 });
 
-LinksStack.navigationOptions = {
-  tabBarLabel: "Links",
+FavoritesStack.navigationOptions = {
+  tabBarLabel: "Favorites",
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === "ios" ? "ios-link" : "md-link"}
-    />
-  )
-};
-
-const SettingsStack = createStackNavigator({
-  Settings: SettingsScreen,
-  Storage: StorageScreen
-});
-
-SettingsStack.navigationOptions = {
-  tabBarLabel: "Settings",
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === "ios" ? "ios-options" : "md-options"}
+      name={Platform.OS === "ios" ? "ios-heart" : "md-heart"}
     />
   )
 };
 
 export default createBottomTabNavigator({
   HomeStack,
-  LinksStack,
-  SettingsStack
+  FavoritesStack
 });

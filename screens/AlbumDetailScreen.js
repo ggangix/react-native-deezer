@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Text,
   ActivityIndicator,
+  Alert,
   Linking
 } from "react-native";
 import { Icon, Avatar, Divider, List, ListItem } from "react-native-elements";
@@ -54,6 +55,14 @@ export default class AlbumDetailScreen extends React.Component {
 
     if (success) {
       console.log("OK!");
+      Alert.alert(
+        "Track Added",
+        `Track ${track.title} from ${
+          track.artist.name
+        } was added to Favorites!`,
+        [{ text: "Continue", onPress: () => console.log("OK Pressed") }],
+        { cancelable: false }
+      );
     }
   }
 
